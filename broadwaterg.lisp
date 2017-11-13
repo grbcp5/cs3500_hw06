@@ -67,7 +67,7 @@
   (printRow allBlack)
   
   (defvar unitSize 3)
-   ;(loop for unitSize from minRedBlockUnitSize to rowSize by 1 do
+   (loop for unitSize from minRedBlockUnitSize to rowSize by 1 do
     (loop for start from 0 to rowSize by 1 do
       (progn  
         (placeRedBlockUnit 
@@ -79,7 +79,7 @@
         )
       )
     )
-  ;)
+  )
 
   (return-from placeRedBlocks allConfigs)  
 )
