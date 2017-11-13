@@ -47,8 +47,10 @@
 
   (if (>= rowSize (+ redBlockUnitSize start))
     (progn
-      (loop for pos from 0 to (- redBlockUnitSize 1) by 1 do
-        (setf (nth (+ start pos) config) 'r)
+     (loop for pos from 0 to (- redBlockUnitSize 1) by 1 do
+        (progn 
+          (setf (nth (+ start pos) config) 'r) 
+        )
       )
       (setf allConfigs (cons config allConfigs))
       ;(printRow config)
@@ -69,12 +71,12 @@
 (defun placeRedBlocks (rowSize) 
   "Returns a list of all the possible red block combinations in a row"
   
-  (defvar allBlack (allBlackRow rowSize))
-  (defvar minRedBlockUnitSize 3)
-  (defvar allConfigs (cons allBlack nil))
+  (setf allBlack (allBlackRow rowSize))
+  (setf minRedBlockUnitSize 3)
+  (setf allConfigs (cons allBlack nil))
 
   ;(printRow allBlack)
-  
+
   (defvar unitSize 3)
    (loop for unitSize from minRedBlockUnitSize to rowSize by 1 do
     (loop for start from 0 to rowSize by 1 do
@@ -93,7 +95,12 @@
   (return-from placeRedBlocks allConfigs)  
 )
 
-;(write-line "Hello, world!")
+;;; Test each sample input
+;(print (length (placeRedBlocks 7)))
+;(print (length (placeRedBlocks 8)))
+;(print (length (placeRedBlocks 9)))
+;(print (length (placeRedBlocks 10)))
+;(print (length (placeRedBlocks 11)))
 ;(print (length (placeRedBlocks 12)))
 
 ;;; Exit out of gcl
