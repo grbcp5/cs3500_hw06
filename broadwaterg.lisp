@@ -28,11 +28,18 @@
   (format t "(~{#\\~a~})~%" row)
 )
 
+(defun printAllRows(list)
+  "Prints each row in the list"
+  (loop for row in list
+    do (printRow(row))
+  )
+)
+
 (defun placeRedBlockUnit (
   minRedBlockUnitSize 
   redBlockUnitSize 
   rowSize 
-  start 
+  start
   prevConfig
   )
   "Places all possible red block units possible starting with given configuration"
@@ -43,6 +50,7 @@
       (loop for pos from 0 to (- redBlockUnitSize 1) by 1 do
         (setf (nth (+ start pos) config) 'r)
       )
+      (setf allConfigs (cons config allConfigs))
       (printRow config)
     )
   )
@@ -54,27 +62,30 @@
   
   (defvar allBlack (allBlackRow rowSize))
   (defvar minRedBlockUnitSize 3)
+  (defvar allConfigs (cons allBlack nil))
 
   (printRow allBlack)
-
   
   (defvar unitSize 3)
    ;(loop for unitSize from minRedBlockUnitSize to rowSize by 1 do
     (loop for start from 0 to rowSize by 1 do
-      (placeRedBlockUnit 
-        minRedBlockUnitSize
-        unitSize
-        rowSize
-        start
-        allBlack
+      (progn  
+        (placeRedBlockUnit 
+          minRedBlockUnitSize
+          unitSize
+          rowSize
+          start
+          allBlack
+        )
       )
     )
   ;)
 
+  (return-from placeRedBlocks allConfigs)  
 )
 
 (write-line "Hello, world!")
-(placeRedBlocks 7)
+(print (length (placeRedBlocks 7)))
 
 ;;; Exit out of gcl
 (quit)
