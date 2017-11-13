@@ -52,6 +52,13 @@
       )
       (setf allConfigs (cons config allConfigs))
       (printRow config)
+      (placeRedBlockUnit
+        minRedBlockUnitSize
+        redBlockUnitSize
+        rowSize
+        (+ start redBlockUnitSize 1)
+        config
+      )
     )
   )
 
