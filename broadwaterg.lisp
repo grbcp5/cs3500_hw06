@@ -34,10 +34,13 @@
   rowSize 
   start 
   configurations 
-  prevString
+  prevConfig
   )
   "Places all possible red block units possible starting with given configuration"
-  (printRow prevString)
+  (setf newConfig (copy-list prevConfig))
+  (setf (nth 1 newConfig) 'r)
+  (printRow prevConfig)
+  (printRow newConfig)
 )
 
 (defun placeRedBlocks (size) 
