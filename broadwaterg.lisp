@@ -52,13 +52,17 @@
       )
       (setf allConfigs (cons config allConfigs))
       (printRow config)
-      (placeRedBlockUnit
-        minRedBlockUnitSize
-        redBlockUnitSize
-        rowSize
-        (+ start redBlockUnitSize 1)
-        config
+
+      (loop for otherUnitSize from minRedBlockUnitSize to rowSize by 1 do
+        (placeRedBlockUnit
+          minRedBlockUnitSize
+          otherUnitSize
+          rowSize
+          (+ start redBlockUnitSize 1)
+          config
+        )
       )
+
     )
   )
 
@@ -91,8 +95,8 @@
   (return-from placeRedBlocks allConfigs)  
 )
 
-(write-line "Hello, world!")
-(print (length (placeRedBlocks 7)))
+;(write-line "Hello, world!")
+(print (length (placeRedBlocks 12)))
 
 ;;; Exit out of gcl
 (quit)
